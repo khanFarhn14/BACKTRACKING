@@ -1,5 +1,3 @@
-package BACKTRACKING;
-
 public class Main {
     static int n = 9;
 
