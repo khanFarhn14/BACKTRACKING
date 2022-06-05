@@ -3,20 +3,28 @@ public class Main {
 
     static boolean isSafe(int[][] board, int row, int column, int sudnmbr) {
 
+        //Finding the Number Both Vertical and Horizontal simultaneously
         for (int i = 0; i < n; i++) {
+
+            //Checking Vertical
             if (board[row][i] == sudnmbr) {
                 return false;
             }
 
+            //Checking Horizontal
             if (board[i][column] == sudnmbr) {
                 return false;
             }
         }
 
-        // checking the grid 3x3
-        int newRow = (row / 3) * 3;
-        int newColumn = (column / 3) * 3;
+        // Finding in its own 3x3 Grid
 
+        //This will help to start at the beginning of the grid *
+        int newRow = (row / 3) * 3; 
+        int newColumn = (column / 3) * 3;
+        // *
+
+        //Looping through Grid
         for (int i = newRow; i <= (newRow + 2); i++) {
             for (int j = newColumn; j <= (newColumn + 2); j++) {
                 if (board[i][j] == sudnmbr) {
@@ -28,10 +36,15 @@ public class Main {
     }
 
     static void sudoku(int[][] board, int row, int column) {
+
+        //When Row is finished it moves to next Column
         if (row == n) {
             sudoku(board, 0, column + 1);
             return;
         }
+
+
+        //When sudoku is Solved
         if (column == n) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
@@ -44,6 +57,8 @@ public class Main {
             return;
         }
 
+
+
         if (board[row][column] == 0) {
             int sudokuNmbr = n;
             for (; sudokuNmbr >= 1; sudokuNmbr--) {
@@ -54,7 +69,10 @@ public class Main {
             }
             if (sudokuNmbr == 0) {
                 board[row][column] = 0;
-                return;
+                return;// why return because our program will enter in this else when
+                // board[row][column] is filled default
+                // so when backtracking we will also come to this else statement so we will
+                // return
             }
         } else {
             sudoku(board, row + 1, column);
@@ -273,3 +291,39 @@ public class Main {
         System.out.println(duration);
     }
 }
+// when sudoku was easy
+// when the grid is first
+// 2,59,97,650 when grid is up run 4 times
+
+// when the grid is below horizontal and column
+// 2,17,51,150
+
+// Difference is 42,56,500
+
+// when sudoku was hard
+
+// hard one
+// when grid is up
+// 1st run = 31979800
+// 2nd run = 61619300
+// 3rd run = 30250800
+// 4th run = 73567200
+// 5th run = 31748300
+
+// Average = 45833080
+
+// when grid is below
+// 1st run = 28980500
+// 2nd run = 101406899
+// 3rd run = 26452901
+// 4th run = 31304200
+// 5th run = 29663800
+
+// Average run = 43561660
+// when the grid is first
+// 4,58,33,080
+
+// when the grid is below
+// 4,35,61,660
+
+// Difference is 22,71,420
